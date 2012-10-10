@@ -602,3 +602,4 @@ static void genArrayPut(CompilationUnit *cUnit, MIR *mir, OpSize size,
         HEAP_ACCESS_SHADOW(false);
     }
 }
+
