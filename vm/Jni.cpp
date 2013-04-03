@@ -3531,6 +3531,8 @@ jint JNI_CreateJavaVM(JavaVM** p_vm, JNIEnv** p_env, void* vm_args) {
                 } else {
                     dvmFprintf(stderr, "ERROR: CreateJavaVM failed: unknown -Xjniopts option '%s'\n",
                             jniOpt);
+                    free(pVM);
+                    free(jniOpts);
                     return JNI_ERR;
                 }
                 jniOpt += strlen(jniOpt) + 1;
@@ -3548,6 +3550,7 @@ jint JNI_CreateJavaVM(JavaVM** p_vm, JNIEnv** p_env, void* vm_args) {
 
     if (gDvmJni.jniVm != NULL) {
         dvmFprintf(stderr, "ERROR: Dalvik only supports one VM per process\n");
+        free(pVM);
         return JNI_ERR;
     }
     gDvmJni.jniVm = (JavaVM*) pVM;
