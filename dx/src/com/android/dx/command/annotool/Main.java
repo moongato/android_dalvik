@@ -30,8 +30,7 @@ import com.android.dx.rop.annotation.Annotation;
 import java.io.File;
 import java.lang.annotation.ElementType;
 import java.util.EnumSet;
-
-import java.util.Locale;
+import java.util.Arrays;
 
 
 public class Main {
@@ -56,7 +55,7 @@ public class Main {
 
     static class Arguments {
         /**
-         * from --annotation, dot-separated classname
+         * from --annotation, dot-seperated classname
          * of annotation to look for
          */
         String aclass;
@@ -89,7 +88,7 @@ public class Main {
 
                     try {
                         for (String p : argParam.split(",")) {
-                            eTypes.add(ElementType.valueOf(p.toUpperCase(Locale.ROOT)));
+                            eTypes.add(ElementType.valueOf(p.toUpperCase()));
                         }
                     } catch (IllegalArgumentException ex) {
                         throw new InvalidArgumentException(
@@ -100,7 +99,7 @@ public class Main {
 
                     try {
                         for (String p : argParam.split(",")) {
-                            printTypes.add(PrintType.valueOf(p.toUpperCase(Locale.ROOT)));
+                            printTypes.add(PrintType.valueOf(p.toUpperCase()));
                         }
                     } catch (IllegalArgumentException ex) {
                         throw new InvalidArgumentException("invalid --print");
