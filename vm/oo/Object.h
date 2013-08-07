@@ -306,8 +306,6 @@ struct Field {
     u4              accessFlags;
 };
 
-u4 dvmGetFieldIdx(const Field* field);
-
 /*
  * Static field.
  */
@@ -583,8 +581,6 @@ struct Method {
     /* set if method was called during method profiling */
     bool            inProfile;
 };
-
-u4 dvmGetMethodIdx(const Method* method);
 
 
 /*
