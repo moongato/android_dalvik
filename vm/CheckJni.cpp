@@ -33,10 +33,12 @@
  * Abort if we are configured to bail out on JNI warnings.
  */
 static void abortMaybe() {
-    if (!gDvmJni.warnOnly) {
-        dvmDumpThread(dvmThreadSelf(), false);
-        dvmAbort();
-    }
+#   ifndef DVMJNI_FORCE_WARN_ONLY
+        if (!gDvmJni.warnOnly) {
+            dvmDumpThread(dvmThreadSelf(), false);
+            dvmAbort();
+        }
+#   endif
 }
 
 /*
