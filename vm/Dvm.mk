@@ -26,16 +26,31 @@
 #
 
 LOCAL_CFLAGS += -fstrict-aliasing -Wstrict-aliasing=2
-LOCAL_CFLAGS += -Wall -Wextra -Wno-unused-parameter
+LOCAL_CFLAGS += -Wall -Wextra -Wno-unused-parameter -Wno-unused-but-set-variable
 LOCAL_CFLAGS += -DARCH_VARIANT=\"$(dvm_arch_variant)\"
 
 ifneq ($(strip $(LOCAL_CLANG)),true)
-LOCAL_CFLAGS += -fno-align-jumps
+  LOCAL_CFLAGS += -fno-align-jumps
 endif
 
 #
 # Optional features.  These may impact the size or performance of the VM.
 #
+
+# Set DVMJNI_FORCE_WARN_ONLY to never abort from a jni warning no matter
+# if gDvm.warnOnly is otherwise set.
+#
+# Force warn only by default on the codefirex build variant if
+# DVMJNI_FORCE_WARN_ONLY is not set in the environment.
+# If on another variant, force warn only, only if DVMJNI_FORCE_WARN_ONLY
+# exists in the environment.
+ifeq ($(strip $(DVMJNI_FORCE_WARN_ONLY)),)
+  ifeq ($(TARGET_BUILD_VARIANT),codefirex)
+    LOCAL_CFLAGS += -DDVMJNI_FORCE_WARN_ONLY
+  endif
+else
+  LOCAL_CFLAGS += -DDVMJNI_FORCE_WARN_ONLY
+endif
 
 # Make a debugging version when building the simulator (if not told
 # otherwise) and when explicitly asked.
